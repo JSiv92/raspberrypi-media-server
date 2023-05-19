@@ -1,0 +1,205 @@
+<!--Template file-->
+<!--templates/files.html.j2-->
+
+<head>
+
+	<title>Pi Flix File Server</title>
+
+</head>
+
+<style>
+
+body
+{ 
+
+	background-image:url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fbgfons.com%2Fuploads%2Fpaint%2Fpaint_texture2173.jpg&f=1&nofb=1&ipt=8e5c611ef5cfbd345306a6bb59dd7e2da6e8f8cf5a769afe437edc1106eef4fd&ipo=images");
+}
+
+.container
+{
+	background-color:#FFFFFF;
+	padding:25px;
+	opacity:0.9;
+	border-radius: 25px;
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+table 
+{
+	table-layout: fixed; 
+	width: 100%;
+}
+
+table td, th 
+{
+	word-wrap: break-word;
+	padding: 15px;
+}
+
+th 
+{
+	text-align: left;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+a:link, a:visited
+{
+	color: red;
+}
+
+a:hover
+{
+	color: #8B0000;
+}
+
+.table_heading
+{
+	font-family: "Gill Sans", sans-serif;
+	font-size: 2em;
+}
+
+tbody
+{
+	font-size: 1.3em;
+	font-family: "Gill Sans", sans-serif;
+}
+
+.logo-container
+{
+
+	display: flex;
+	justify-content: center;
+	padding: 40px;
+	background-color: rgba(0,0,0,0.5);
+	width: auto;
+	margin: 0 auto;
+	border-radius:25px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+
+}
+
+footer 
+{
+	display:block;
+}
+
+.submitdiv
+{
+	
+	display: flex;
+	justify-content: center;
+	padding: 16px;
+	background-color: rgba(0,0,0,0.5);
+	border-radius:25px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+form
+{
+	
+
+}
+
+input
+{
+	border: 2px solid red;
+	border-radius: 4px;
+	color: white;
+	background-color: rgba(0,0,0,0.5);
+}
+
+
+
+
+</style>
+
+<div class="logo-container">
+	<img src="https://i.ibb.co/VxKwW7K/croppepd-logo.png" alt="logo" border="0" />
+</div>
+
+<div class="container">
+
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th class="table_heading">Name</th>
+            <th class="table_heading">Modified Time</th>
+            <th class="table_heading">Size</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="{{ url_for('getFiles', reqPath=data['parentFolder']) }}">
+                    <span><i class="bi bi-folder-symlink" style="margin-right:0.3em"></i>Parent Directory</span>
+                </a>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% for fileObj in data['files'] %}
+        <tr>
+            <td>
+                <a href="{{ url_for('getFiles', reqPath=fileObj['relPath']) }}">
+                    <span><i class="{{fileObj['fIcon']}}" style="margin-right:0.3em"></i>{{ fileObj['name'] }}</span>
+                </a>
+            </td>
+            <td>{{fileObj['mTime']}}</td>
+            <td>{{fileObj['size']}}</td>
+            <td>
+                 <a href="{{ url_for('getFiles', reqPath=fileObj['relPath']) }}" download>
+                    DOWNLOAD
+                </a>           
+            </td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+
+<div class="logo-container">
+	<img src="https://i.ibb.co/zGq7hYb/upload-logo-removebg-preview.png" alt="uploadlogo" border="0" height="50px"/>
+</div>
+
+<div class="submitdiv">
+
+    <form action = "/success" method = "post" enctype="multipart/form-data">  
+        <input type="file" name="file" required/>  
+        <input type = "submit" value="Upload New File">  
+    </form>  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
